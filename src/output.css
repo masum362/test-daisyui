@@ -2037,6 +2037,14 @@
       gap: calc(0.25rem * 2);
     }
   }
+  .carousel-item {
+    @layer daisyui.l1.l2.l3 {
+      box-sizing: content-box;
+      display: flex;
+      flex: none;
+      scroll-snap-align: start;
+    }
+  }
   .badge {
     @layer daisyui.l1.l2.l3 {
       display: inline-flex;
@@ -2069,6 +2077,20 @@
       font-size: var(--card-fs, 0.875rem);
       :where(p) {
         flex-grow: 1;
+      }
+    }
+  }
+  .carousel {
+    @layer daisyui.l1.l2.l3 {
+      display: inline-flex;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      @media (prefers-reduced-motion: no-preference) {
+        scroll-behavior: smooth;
+      }
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
   }
@@ -2145,6 +2167,9 @@
       }
     }
   }
+  .flex {
+    display: flex;
+  }
   .hidden {
     display: none;
   }
@@ -2172,8 +2197,14 @@
   .w-96 {
     width: calc(var(--spacing) * 96);
   }
+  .w-full {
+    width: 100%;
+  }
   .flex-shrink {
     flex-shrink: 1;
+  }
+  .flex-grow {
+    flex-grow: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -2216,8 +2247,14 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .justify-center {
+    justify-content: center;
+  }
   .justify-end {
     justify-content: flex-end;
+  }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
   }
   .rounded-box {
     border-radius: var(--radius-box);
@@ -2263,6 +2300,9 @@
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
+  }
+  .py-2 {
+    padding-block: calc(var(--spacing) * 2);
   }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
