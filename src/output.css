@@ -18,6 +18,7 @@
     --text-3xl--line-height: calc(2.25 / 1.875);
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -498,6 +499,28 @@
       }
     }
   }
+  .collapse-arrow {
+    @layer daisyui.l1.l2 {
+      > .collapse-title:after {
+        position: absolute;
+        display: block;
+        height: 0.5rem;
+        width: 0.5rem;
+        transform: translateY(-100%) rotate(45deg);
+        @media (prefers-reduced-motion: no-preference) {
+          transition-property: all;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-duration: 0.2s;
+        }
+        top: 50%;
+        inset-inline-end: 1.4rem;
+        content: "";
+        transform-origin: 75% 75%;
+        box-shadow: 2px 2px;
+        pointer-events: none;
+      }
+    }
+  }
   .collapse-plus {
     @layer daisyui.l1.l2 {
       > .collapse-title:after {
@@ -908,6 +931,19 @@
       }
     }
   }
+  .collapse-open {
+    @layer daisyui.l1.l2 {
+      grid-template-rows: max-content 1fr;
+      > .collapse-content {
+        content-visibility: visible;
+        min-height: fit-content;
+        padding-bottom: 1rem;
+        @supports not (content-visibility: visible) {
+          visibility: visible;
+        }
+      }
+    }
+  }
   .collapse {
     visibility: collapse;
   }
@@ -1259,6 +1295,40 @@
       }
     }
   }
+  .avatar-offline {
+    @layer daisyui.l1.l2 {
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        display: block;
+        border-radius: calc(infinity * 1px);
+        background-color: var(--color-base-300);
+        outline: 2px solid var(--color-base-100);
+        width: 15%;
+        height: 15%;
+        top: 7%;
+        right: 7%;
+      }
+    }
+  }
+  .avatar-online {
+    @layer daisyui.l1.l2 {
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        display: block;
+        border-radius: calc(infinity * 1px);
+        background-color: var(--color-success);
+        outline: 2px solid var(--color-base-100);
+        width: 15%;
+        height: 15%;
+        top: 7%;
+        right: 7%;
+      }
+    }
+  }
   .select {
     @layer daisyui.l1.l2.l3 {
       border: var(--border) solid #0000;
@@ -1476,6 +1546,23 @@
       padding-inline-end: 3rem;
       min-height: 1lh;
       transition: background-color 0.2s ease-out;
+    }
+  }
+  .avatar {
+    @layer daisyui.l1.l2.l3 {
+      position: relative;
+      display: inline-flex;
+      vertical-align: middle;
+      & > div {
+        display: block;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+      }
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
     }
   }
   .checkbox {
@@ -1997,6 +2084,9 @@
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
   }
+  .w-24 {
+    width: calc(var(--spacing) * 24);
+  }
   .w-52 {
     width: calc(var(--spacing) * 52);
   }
@@ -2018,6 +2108,9 @@
         rotate: calc(45deg * -1);
       }
     }
+  }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .skeleton {
     @layer daisyui.l1.l2.l3 {
@@ -2046,6 +2139,9 @@
   }
   .rounded-box {
     border-radius: var(--radius-box);
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
   }
   .border {
     border-style: var(--tw-border-style);
@@ -2115,6 +2211,16 @@
   .underline {
     text-decoration-line: underline;
   }
+  .swap-active {
+    @layer daisyui.l1.l2 {
+      .swap-off {
+        opacity: 0%;
+      }
+      .swap-on {
+        opacity: 100%;
+      }
+    }
+  }
   .shadow-sm {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -2134,6 +2240,10 @@
   .ease-in-out {
     --tw-ease: var(--ease-in-out);
     transition-timing-function: var(--ease-in-out);
+  }
+  .ease-out {
+    --tw-ease: var(--ease-out);
+    transition-timing-function: var(--ease-out);
   }
   .btn-lg {
     @layer daisyui.l1.l2 {
@@ -2444,6 +2554,26 @@
     background-position-x: -115%;
   }
 }
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
@@ -2583,6 +2713,11 @@
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-border-style: solid;
       --tw-font-weight: initial;
       --tw-shadow: 0 0 #0000;
